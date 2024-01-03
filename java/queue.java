@@ -1,5 +1,17 @@
 // Is a queue a FIFO or LIFO?
 
+// What are queues used for.
+//Answer: 
+// CPU scheduling, Disk Scheduling
+// When data is transferred asynchronously between two processes.The queue is used for synchronization. For example: IO Buffers, pipes, file IO, etc
+// Handling of interrupts in real-time systems.
+// Call Center phone systems use Queues to hold people calling them in order.
+
+// What is the time complexity?
+// Answer: 
+// The complexity of enqueue and dequeue operations in a queue using an array is O(1). 
+//If you use pop(N) in python code, then the complexity might be O(n) depending on the position of the item to be popped.
+
 class Queue {
     private int arr[];
     private int front;
@@ -69,7 +81,7 @@ class Queue {
         if (isEmpty()) {
             System.out.println("Queue is empty!");
         }
-        System.err.println("Front: " + front);
+        System.out.println("Front: " + front);
     }
 
     public boolean isEmpty() {
