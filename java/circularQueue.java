@@ -14,30 +14,53 @@ class CircularQueue {
         CircularQueue queue = new CircularQueue(5);
 
         queue.printQueue();
-        queue.enqueue(5);
-
+        queue.enqueue(64);
+        queue.printQueue();
+        queue.enqueue(32);
+        queue.enqueue(16);
+        queue.enqueue(128);
+        queue.printQueue();
+        queue.enqueue(512);
+        queue.printQueue();
+        queue.enqueue(90);
+        queue.printQueue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.printQueue();
+        queue.enqueue(1024);
+        queue.printQueue();
     }
 
     public void enqueue(int value) {
         if (isFull()) {
             System.out.println("Queue is full!");
+        } else {
+            if (front == -1) {
+                front = 0;
+            }
+            rear = (rear + 1) % capacity;
+            array[rear] = value;
         }
 
-        if (front == -1) {
-            front++;
-            rear++;
-            array[front] = value;
-        }
     }
 
     public int dequeue() {
-        int value = array[front];
+        int value;
         if (isEmpty()) {
             System.out.println("Queue is empty!");
-            System.exit(-1);
+            return -1;
+        } else {
+            value = array[front];
+            if (front == rear) {
+                front = -1;
+                rear = -1;
+            } else {
+                front = (front + 1) % capacity;
+            }
+            return value;
         }
-
-        return value;
     }
 
     public void peek() {
@@ -45,18 +68,27 @@ class CircularQueue {
     }
 
     public boolean isEmpty() {
-        return front == -1;
+        if (front == -1)
+            return true;
+        return false;
     }
 
     public boolean isFull() {
-        return front - rear >= capacity;
+        if (front == 0 && rear == capacity - 1)
+            return true;
+        if (front == rear + 1)
+            return true;
+        return false;
     }
 
     public void printQueue() {
         if (isEmpty()) {
-
+            System.out.println("Queue is empty");
         } else {
-
+            for (int i = front; i != rear; i = (i + 1) % capacity) {
+                System.out.print(array[i] + " ");
+            }
+            System.out.println(array[rear]);
         }
     }
 
