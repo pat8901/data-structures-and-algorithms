@@ -15,7 +15,7 @@ class PriorityQueue {
 
     }
 
-    public int delete() {
+    public void delete() {
 
     }
 
