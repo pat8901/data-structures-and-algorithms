@@ -18,6 +18,7 @@ class MaxHeap {
     private int maxSize;
     private int heap[];
 
+    // Default object constructor
     MaxHeap(int capacity) {
         size = 0;
         maxSize = capacity;
@@ -53,24 +54,69 @@ class MaxHeap {
 
     }
 
-    public void heapify(int ht[], int i) {
+    public void heapify(int index) {
+        if (isLeaf(index))
+            return;
+        if (heap[index] < heap[left(index)] || heap[index] < heap[right(index)]) {
+            if (heap[left(index)] > heap[right(index)]) {
+                swap(index, left(index));
+                heapify(left(index));
+            } else {
+                swap(index, right(index));
+                heapify(right(index));
+            }
+        }
 
     }
 
-    public void insertNode(int ht[], int newNumber) {
-
+    public void insertNode(int element) {
+        heap[size] = element;
+        int current = size;
+        while (heap[current] > heap[parent(current)]) {
+            swap(current, parent(current));
+            current = parent(current);
+        }
+        size++;
     }
 
-    public void deleteNode(int ht[], int number) {
-
+    public int extractMax() {
+        int popped = heap[0];
+        heap[0] = heap[--size];
+        heapify(0);
+        return popped;
     }
 
+    // this is a bad print function
     public void printHeap() {
-
+        for (int i = 0; i < size / 2; i++) {
+            System.out.print("Parent: " + heap[i] + " ");
+            if (left(i) < size) {
+                System.out.print("left: " + heap[left(i)] + " ");
+            }
+            if (right(i) < size) {
+                System.out.print("Right: " + heap[right(i)] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String args[]) {
+        MaxHeap heap = new MaxHeap(15);
+        heap.printHeap();
+        heap.insertNode(5);
+        heap.insertNode(3);
+        heap.insertNode(17);
+        heap.insertNode(10);
+        heap.insertNode(84);
+        heap.insertNode(19);
+        heap.insertNode(6);
+        heap.insertNode(22);
+        heap.insertNode(9);
+        heap.printHeap();
 
+        System.out.println("Max value: " + heap.extractMax());
+        System.out.println("==========================");
+        heap.printHeap();
     }
 
 }
