@@ -1,4 +1,4 @@
-package SA;
+package Sorting_Algoritms;
 
 import java.util.Random;
 
