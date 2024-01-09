@@ -4,7 +4,6 @@ import java.util.Random;
 
 class BubbleSort {
     private int[] array;
-    private int size;
 
     BubbleSort(int size) {
         array = new int[size];
