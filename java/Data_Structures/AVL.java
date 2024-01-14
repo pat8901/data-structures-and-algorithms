@@ -1,5 +1,5 @@
 package Data_Structures;
 
-class HashTable {
+public class AVL {
 
 }

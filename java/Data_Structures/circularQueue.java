@@ -1,3 +1,4 @@
+package Data_Structures;
 
 class CircularQueue {
     private int front, rear;

@@ -7,7 +7,6 @@ class Test {
 
         Random number = new Random();
         int[] array = new int[10];
-        int key = 10;
 
         for (int i = 0; i < array.length; i++) {
             array[i] = number.nextInt(25);
