@@ -36,12 +36,59 @@ class BinaryTree {
     }
 
     public void inOrder() {
+        System.out.println("In-Order:");
+        inOrderRec(root);
+        System.out.println("");
+    }
 
+    public void inOrderRec(TreeNode root) {
+        if (root != null) {
+            inOrderRec(root.left);
+            System.out.print(root.data + " ");
+            inOrderRec(root.right);
+
+        }
+    }
+
+    public void preOrder() {
+        System.out.println("Pre-Order:");
+        preOrderRec(root);
+        System.out.println("");
+    }
+
+    public void preOrderRec(TreeNode root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preOrderRec(root.left);
+            preOrderRec(root.right);
+
+        }
+    }
+
+    public void postOrder() {
+        System.out.println("Post-Order:");
+        postOrderRec(root);
+        System.out.println("");
+    }
+
+    public void postOrderRec(TreeNode root) {
+        if (root != null) {
+            postOrderRec(root.left);
+            postOrderRec(root.right);
+            System.out.print(root.data + " ");
+        }
     }
 
     public static void main(String args[]) {
         BinaryTree tree = new BinaryTree();
         tree.insert(5);
+        tree.insert(4);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(10);
+        tree.inOrder();
+        tree.preOrder();
+        tree.postOrder();
     }
 
 }
