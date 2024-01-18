@@ -13,13 +13,13 @@ package Data_Structures;
 // The complexity of enqueue and dequeue operations in a queue using an array is O(1). 
 //If you use pop(N) in python code, then the complexity might be O(n) depending on the position of the item to be popped.
 
-class Queue {
+public class Queue {
     private int arr[];
     private int front;
     private int rear;
     private int capacity;
 
-    Queue(int size) {
+    public Queue(int size) {
         capacity = size;
         arr = new int[capacity];
         front = -1;
@@ -29,21 +29,6 @@ class Queue {
     public static void main(String args[]) {
         Queue queue = new Queue(5);
         queue.enqueue(50);
-        queue.enqueue(232);
-        queue.enqueue(512);
-        queue.printQueue();
-        queue.dequeue();
-        queue.printQueue();
-        queue.dequeue();
-        queue.dequeue();
-        queue.printQueue();
-        queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
-        queue.enqueue(4);
-        queue.enqueue(5);
-        queue.printQueue();
-        queue.enqueue(100);
         queue.printQueue();
     }
 

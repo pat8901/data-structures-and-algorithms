@@ -1,19 +1,19 @@
 package Data_Structures;
 
-class TreeNode {
-    public int data;
-    public TreeNode left;
-    public TreeNode right;
+public class BinaryTree {
+    public class TreeNode {
+        public int data;
+        public TreeNode left;
+        public TreeNode right;
 
-    public TreeNode(int data) {
-        this.data = data;
-        left = null;
-        right = null;
+        public TreeNode(int data) {
+            this.data = data;
+            left = null;
+            right = null;
+        }
     }
-}
 
-class BinaryTree {
-    TreeNode root;
+    public TreeNode root;
 
     public void insert(int data) {
         root = insertRec(root, data);
