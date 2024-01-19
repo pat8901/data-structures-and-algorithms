@@ -12,7 +12,17 @@ class ListNode {
 class List {
     ListNode head;
 
-    public void addTailNode(int data) {
+    public int getLength() {
+        int count = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    public void append(int data) {
         ListNode node = new ListNode(data);
         node.next = null;
 
@@ -28,7 +38,7 @@ class List {
 
     }
 
-    public void addHeadNode(int data) {
+    public void prepend(int data) {
         ListNode node = new ListNode(data);
         if (head == null) {
             head = node;
@@ -39,7 +49,67 @@ class List {
         }
     }
 
-    public void addNodeAtIndex(int index, int data) {
+    public void insertAt(int index, int data) {
+
+    }
+
+    public boolean removeAt(int index) {
+        ListNode temp = head;
+        ListNode prev = null;
+
+        if (index == 0 && temp != null) {
+            head = temp.next;
+            System.out.println("Deleted: " + index);
+            return true;
+        }
+
+        int counter = 0;
+
+        while (temp != null) {
+            if (counter == index) {
+                prev.next = temp.next;
+                System.out.println("Deleted: " + index);
+                return true;
+            } else {
+                prev = temp;
+                temp = temp.next;
+                counter++;
+            }
+        }
+        if (temp == null) {
+            System.out.println(index + " position was not found");
+        }
+        return false;
+    }
+
+    public boolean remove(int key) {
+        ListNode temp = head;
+        ListNode prev = null;
+
+        if (temp != null && temp.data == key) {
+            head = temp.next;
+            System.out.println("Deleted: " + key);
+            return true;
+        }
+
+        while (temp != null && temp.data != key) {
+            prev = temp;
+            temp = temp.next;
+        }
+
+        if (temp != null) {
+            prev.next = temp.next;
+            System.out.println("Deleted: " + key);
+            return true;
+        }
+
+        if (temp == null) {
+            System.out.println(key + " was not found");
+        }
+        return false;
+    }
+
+    public void get() {
 
     }
 
@@ -86,26 +156,16 @@ class List {
 
     public static void main(String args[]) {
         List list = new List();
-        list.addTailNode(255);
-        list.addTailNode(8);
-        list.addTailNode(16);
-        list.addTailNode(64);
-        list.addTailNode(512);
-        list.addHeadNode(200);
-        list.addHeadNode(76);
-        list.addTailNode(90);
-        list.removeHeadNode();
-        list.removeHeadNode();
-        list.removeHeadNode();
-        list.addHeadNode(1024);
-        list.removeHeadNode();
-        list.addTailNode(2000);
-        list.removeTailNode();
-        list.removeTailNode();
-        list.removeTailNode();
-        list.removeTailNode();
-        list.removeTailNode();
 
+        list.append(1);
+        list.append(90);
+        list.append(64);
+        list.append(256);
+        list.append(32);
         list.printList();
+        System.out.println("Length: " + list.getLength());
+        list.removeAt(2);
+        list.printList();
+        System.out.println("Length: " + list.getLength());
     }
 }

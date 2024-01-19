@@ -1,10 +1,10 @@
 // For later think of a way where you can implement BFS without using built-in java data structures
 // The queue would need to be able to hold tree nodes and not ints
-package Graph_Search_Algorithms;
+package Data_Structures;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import Data_Structures.BinaryTree;
+
 import Data_Structures.BinaryTree.TreeNode;
 
 public class breadthFirstSearch {

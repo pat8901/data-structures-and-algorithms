@@ -31,19 +31,41 @@ public class BinaryTree {
         return root;
     }
 
-    public boolean delete(TreeNode root, int key) {
-        // Case no children
-        // delete
+    public TreeNode delete(TreeNode root, int key) {
+        // base case for never finding the node
         if (root == null) {
-            return false;
+            return root;
         }
+        // traversing to find the node
+        if (root.data > key) {
+            root.left = delete(root.left, key);
+        } else if (root.data < key) {
+            root.right = delete(root.right, key);
+        }
+        // If the node is neither less than or greater than, then it must be equal
+        // i.e. we found the node
+        else {
+            // Cases when the node only has one child or no children
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
 
-        // Case one child
-        // set parent to child
+            // Case when node has two children
+            root.data = inOrderSuccessor(root.right);
+            root.right = delete(root.right, root.data);
+        }
+        return root;
+    }
 
-        // Case two children
-        // get to the two previous cases
-        return true;
+    public int inOrderSuccessor(TreeNode root) {
+        int minimum = root.data;
+        while (root.left != null) {
+            minimum = root.left.data;
+            root = root.left;
+        }
+        return minimum;
     }
 
     public boolean search(TreeNode root, int key) {
@@ -135,7 +157,12 @@ public class BinaryTree {
 
         System.out.println("Compare result: " + tree.compare(tree.root, b.root));
         System.out.println("Find result: " + b.search(b.root, 5));
+        b.inOrder();
 
+        b.delete(b.root, 10);
+        System.out.println("Compare result: " + tree.compare(tree.root, b.root));
+        System.out.println("Find result: " + b.search(b.root, 10));
+        b.inOrder();
     }
 
 }
