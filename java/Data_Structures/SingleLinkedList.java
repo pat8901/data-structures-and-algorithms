@@ -1,16 +1,16 @@
 package Data_Structures;
 
-class ListNode {
-    public int data;
-    ListNode next;
-
-    ListNode(int data) {
-        this.data = data;
-    }
-}
-
-class List {
+public class SingleLinkedList {
     ListNode head;
+
+    class ListNode {
+        public int data;
+        ListNode next;
+
+        ListNode(int data) {
+            this.data = data;
+        }
+    }
 
     public int getLength() {
         int count = 0;
@@ -49,8 +49,37 @@ class List {
         }
     }
 
-    public void insertAt(int index, int data) {
+    public boolean insertAt(int index, int data) {
+        ListNode node = new ListNode(data);
+        ListNode temp = head;
+        ListNode prev = null;
 
+        if (index == 0 && temp != null) {
+            node.next = head;
+            head = node;
+            System.out.println("Inserted " + data + " at index " + index);
+            return true;
+        }
+
+        int counter = 0;
+        while (temp != null) {
+            if (counter == index) {
+                prev.next = node;
+                node.next = temp;
+                System.out.println("Inserted " + data + " at index " + index);
+                return true;
+            } else {
+                prev = temp;
+                temp = temp.next;
+                counter++;
+            }
+        }
+
+        if (temp == null) {
+
+            System.out.println(index + " index was not found");
+        }
+        return false;
     }
 
     public boolean removeAt(int index) {
@@ -82,7 +111,7 @@ class List {
         return false;
     }
 
-    public boolean remove(int key) {
+    public boolean removeKey(int key) {
         ListNode temp = head;
         ListNode prev = null;
 
@@ -109,11 +138,15 @@ class List {
         return false;
     }
 
-    public void get() {
-
+    public void getHead() {
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            System.out.println("Head: " + head.data);
+        }
     }
 
-    public void removeTailNode() {
+    public void removeTail() {
         if (head == null) {
             System.out.println("No nodes to remove!");
         } else if (head.next == null) {
@@ -130,7 +163,7 @@ class List {
         }
     }
 
-    public void removeHeadNode() {
+    public void removeHead() {
         if (head == null) {
             System.out.println("No nodes to remove!");
         } else {
@@ -155,7 +188,7 @@ class List {
     }
 
     public static void main(String args[]) {
-        List list = new List();
+        SingleLinkedList list = new SingleLinkedList();
 
         list.append(1);
         list.append(90);
@@ -167,5 +200,12 @@ class List {
         list.removeAt(2);
         list.printList();
         System.out.println("Length: " + list.getLength());
+        list.insertAt(3, 512);
+        list.printList();
+        System.out.println("Length: " + list.getLength());
+        list.getHead();
+        list.removeKey(1);
+        list.printList();
+        list.getHead();
     }
 }
