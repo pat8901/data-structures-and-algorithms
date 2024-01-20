@@ -111,6 +111,7 @@ public class SingleLinkedList {
         return false;
     }
 
+    // I dont know if I am setting the head right
     public boolean removeKey(int key) {
         ListNode temp = head;
         ListNode prev = null;
