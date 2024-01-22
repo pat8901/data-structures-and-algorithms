@@ -17,14 +17,13 @@ public class DoubleLinkedList {
 
     public boolean append(int data) {
         ListNode node = new ListNode(data);
-        if (head == null) {
-            head = node;
-            tail = head;
+        if (tail == null) {
+            head = tail = node;
             return true;
         }
 
-        tail.next = node;
         node.prev = tail;
+        tail.next = node;
         tail = node;
 
         return true;
@@ -34,11 +33,11 @@ public class DoubleLinkedList {
         ListNode node = new ListNode(data);
         if (head == null) {
             node.next = head;
-            head = node;
-            tail = node;
+            head = tail = node;
             return true;
         }
         node.next = head;
+        head.prev = node;
         head = node;
 
         return true;
@@ -59,10 +58,13 @@ public class DoubleLinkedList {
 
         while (temp != null) {
             if (counter == index) {
-                temp.prev.next = node;
+                // Linking new node
                 node.next = temp;
                 node.prev = temp.prev;
+                // Breaking old links
+                temp.prev.next = node;
                 temp.prev = node;
+
                 return true;
             } else {
                 temp = temp.next;
@@ -83,12 +85,15 @@ public class DoubleLinkedList {
         while (temp != null && temp.data != key) {
             temp = temp.next;
         }
+
         if (temp == null)
             return false;
+
         if (head == tail) {
             head = tail = null;
             return true;
         }
+
         if (temp == head) {
             if (head == null) {
                 return false;
@@ -102,6 +107,7 @@ public class DoubleLinkedList {
             temp.next = null;
             return true;
         }
+
         if (temp == tail) {
             if (tail == null)
                 return false;
@@ -114,6 +120,7 @@ public class DoubleLinkedList {
             temp.prev = null;
             return true;
         }
+
         temp.prev.next = temp.next;
         temp.next.prev = temp.prev;
         temp.prev = temp.next = null;
@@ -218,12 +225,9 @@ public class DoubleLinkedList {
         list.append(32);
         list.append(64);
         list.append(128);
+        list.prepend(187);
+        list.insertAt(89, 3);
 
         list.printList();
-        System.out.println("length: " + list.getLength());
-
-        list.removeKey(12);
-        list.printList();
-        System.out.println("length: " + list.getLength());
     }
 }

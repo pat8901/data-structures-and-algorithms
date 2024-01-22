@@ -56,21 +56,22 @@ class MaxHeap {
 
     }
 
-    public void heapify(int index) {
+    private void heapifyDown(int index) {
         if (isLeaf(index))
             return;
         if (heap[index] < heap[left(index)] || heap[index] < heap[right(index)]) {
             if (heap[left(index)] > heap[right(index)]) {
                 swap(index, left(index));
-                heapify(left(index));
+                heapifyDown(left(index));
             } else {
                 swap(index, right(index));
-                heapify(right(index));
+                heapifyDown(right(index));
             }
         }
 
     }
 
+    // uses heapifyUp concept
     public void insertNode(int element) {
         heap[size] = element;
         int current = size;
@@ -84,7 +85,7 @@ class MaxHeap {
     public int extractMax() {
         int popped = heap[0];
         heap[0] = heap[--size];
-        heapify(0);
+        heapifyDown(0);
         return popped;
     }
 

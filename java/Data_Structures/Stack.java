@@ -1,4 +1,7 @@
 package Data_Structures;
+// Write another version usin nodes.
+
+// what is used more often array based queue or linked list based?
 // What are the operations of a stack?
 
 // What (for the array-based implementation of a stack), the push and pop operations take? 

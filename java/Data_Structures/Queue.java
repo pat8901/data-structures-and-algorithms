@@ -1,4 +1,8 @@
 package Data_Structures;
+// write a queue using nodes
+
+// what is used more often array based queue or linked list based?
+
 // Is a queue a FIFO or LIFO?
 
 // What are queues used for.
@@ -45,7 +49,7 @@ public class Queue {
         }
     }
 
-    public int dequeue() {
+    public int deque() {
         int value;
         if (isEmpty()) {
             System.out.println("Queue is empty!");
