@@ -1,3 +1,4 @@
+// Also called ring buffers, circular buffer, array buffer
 package Data_Structures;
 
 class CircularQueue {
