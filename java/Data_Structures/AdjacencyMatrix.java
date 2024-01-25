@@ -30,23 +30,30 @@ public class AdjacencyMatrix {
         matrix[to][from] = 0;
     }
 
-    public void bfs(int start) {
+    public void bfs(int start, int key) {
         boolean[] seen = new boolean[vertex];
+        List<Integer> path = new ArrayList<>();
 
         for (int i = 0; i < vertex; i++) {
             seen[i] = false;
         }
 
         seen[start] = true;
-        List<Integer> queue = new ArrayList<>(); //
+        List<Integer> queue = new ArrayList<>();
         queue.add(start);
 
         int visit;
         while (!queue.isEmpty()) {
             visit = queue.get(0);
-            System.out.print(visit + " ");
+            path.add(visit);
+            if (visit == key) {
+                System.out.println("found key!");
+                System.out.println("path to key: " + path.toString());
+                return;
+            }
             queue.remove(queue.get(0));
 
+            // Adding neighbors to queue
             for (int i = 0; i < vertex; i++) {
                 if (matrix[visit][i] == 1 && (!seen[i])) {
                     queue.add(i);
@@ -76,14 +83,15 @@ public class AdjacencyMatrix {
     }
 
     public static void main(String args[]) {
-        AdjacencyMatrix graph = new AdjacencyMatrix(4);
-        graph.addEdge(1, 0);
-        graph.addEdge(1, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(3, 1);
+        AdjacencyMatrix graph = new AdjacencyMatrix(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 4);
 
         graph.printMatrix();
         System.out.println("------------------");
-        graph.bfs(3);
+        graph.bfs(1, 3);
     }
 }
