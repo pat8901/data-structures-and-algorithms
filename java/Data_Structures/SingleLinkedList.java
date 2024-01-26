@@ -147,6 +147,29 @@ public class SingleLinkedList {
         }
     }
 
+    public int getAt(int index) {
+        ListNode temp = head;
+
+        if (index == 0) {
+            return head.data;
+        }
+
+        int counter = 0;
+
+        while (temp != null) {
+            if (counter == index) {
+                return temp.data;
+            } else {
+                temp = temp.next;
+                counter++;
+            }
+        }
+        if (temp == null) {
+            System.out.println(index + " position was not found");
+        }
+        return -1;
+    }
+
     public void removeTail() {
         if (head == null) {
             System.out.println("No nodes to remove!");
@@ -192,21 +215,12 @@ public class SingleLinkedList {
         SingleLinkedList list = new SingleLinkedList();
 
         list.append(1);
-        list.append(90);
-        list.append(64);
-        list.append(256);
-        list.append(32);
         list.printList();
-        System.out.println("Length: " + list.getLength());
-        list.removeAt(2);
+        list.append(9);
+        list.append(67);
+        list.append(4);
         list.printList();
-        System.out.println("Length: " + list.getLength());
-        list.insertAt(3, 512);
-        list.printList();
-        System.out.println("Length: " + list.getLength());
-        list.getHead();
-        list.removeKey(1);
-        list.printList();
-        list.getHead();
+        System.out.println(list.getAt(4));
+
     }
 }

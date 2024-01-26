@@ -1,11 +1,19 @@
 // Trying my best not to use collections and use my own implmentations
 package Data_Structures;
 
+import java.util.ArrayList;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class AdjacencyList {
     SingleLinkedList[] list;
+    int size;
 
     // In the future replace array with array List
     public AdjacencyList(int size) {
+        this.size = size;
         list = new SingleLinkedList[size];
         for (int i = 0; i < list.length; i++) {
             list[i] = new SingleLinkedList();
@@ -20,35 +28,118 @@ public class AdjacencyList {
         list[source].removeKey(destination);
     }
 
-    public void bfs() {
+    public ArrayList<Integer> bfs(int source, int key) {
+        int[] prev = solve(source);
+
+        return reconstructPath(source, key, prev);
+    }
+
+    public int[] solve(int source) {
+        Queue<Integer> queue = new LinkedList<>();
+
+        boolean[] visted = new boolean[this.size];
+        int[] prev = new int[this.size];
+
+        for (int i = 0; i < list.length; i++) {
+            visted[i] = false;
+        }
+        for (int i = 0; i < list.length; i++) {
+            prev[i] = -1;
+        }
+
+        queue.add(source);
+
+        visted[source] = true;
+
+        while (!queue.isEmpty()) {
+            int node = queue.remove();
+            SingleLinkedList neighbors = list[node];
+
+            for (int i = 0; i < neighbors.getLength(); i++) {
+                if (!visted[neighbors.getAt(i)]) {
+                    queue.add(neighbors.getAt(i));
+                    visted[neighbors.getAt(i)] = true;
+                    prev[neighbors.getAt(i)] = node;
+                }
+            }
+        }
+        return prev;
+    }
+
+    public ArrayList<Integer> reconstructPath(int source, int key, int[] prev) {
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        for (int i = key; i != -1; i = prev[i]) {
+            path.add(i);
+        }
+        Collections.reverse(path);
+
+        if (path.get(0) == source) {
+            return path;
+        }
+        System.out.println("Path not found!");
+        return path;
 
     }
 
-    public void dfs() {
+    public ArrayList<Integer> dfs(int source, int key) {
+
+        boolean[] seen = new boolean[size];
+        for (int i = 0; i < seen.length; i++) {
+            seen[i] = false;
+        }
+        ArrayList<Integer> path = new ArrayList<>();
+
+        dfsWalk(source, key, seen, path);
+
+        return path;
 
     }
 
-    public void printList() {
+    public boolean dfsWalk(int current, int key, boolean[] seen, ArrayList<Integer> path) {
+        if (seen[current]) {
+            return false;
+        }
+        seen[current] = true;
+        path.add(current);
+        if (current == key) {
+            return true;
+        }
+
+        SingleLinkedList links = list[current];
+        for (int i = 0; i < links.getLength(); ++i) {
+            int edge = links.getAt(i);
+            if (dfsWalk(edge, key, seen, path)) {
+
+                return true;
+            }
+
+        }
+
+        path.removeLast();
+
+        return false;
+    }
+
+    public void printAdjList() {
         System.out.println("-------------------------------");
         for (int i = 0; i < list.length; i++) {
+            System.out.print(i + ": ");
             list[i].printList();
         }
     }
 
     public static void main(String args[]) {
         AdjacencyList graph = new AdjacencyList(5);
-        graph.printList();
+        graph.printAdjList();
         graph.addEdge(0, 1);
-        graph.addEdge(0, 3);
-        graph.addEdge(4, 1);
-        graph.addEdge(2, 78);
-        graph.addEdge(2, 90);
-        graph.addEdge(2, 32);
-        graph.printList();
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 2);
 
-        System.out.println("-------------------------------");
-        graph.removeEdge(4, 1);
-        graph.removeEdge(2, 90);
-        graph.printList();
+        graph.printAdjList();
+        System.out.println(graph.bfs(1, 4));
+
     }
 }

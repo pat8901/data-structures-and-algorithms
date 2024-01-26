@@ -1,10 +1,7 @@
 package Data_Structures;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import Data_Structures.BinaryTree.TreeNode;
 
 public class AdjacencyMatrix {
     private int vertex;
@@ -30,7 +27,9 @@ public class AdjacencyMatrix {
         matrix[to][from] = 0;
     }
 
-    public void bfs(int start, int key) {
+    // I dont know if this is implmented right. I want to return a true path array
+    // to the key
+    public List<Integer> bfs(int start, int key) {
         boolean[] seen = new boolean[vertex];
         List<Integer> path = new ArrayList<>();
 
@@ -49,7 +48,7 @@ public class AdjacencyMatrix {
             if (visit == key) {
                 System.out.println("found key!");
                 System.out.println("path to key: " + path.toString());
-                return;
+                return path;
             }
             queue.remove(queue.get(0));
 
@@ -61,6 +60,8 @@ public class AdjacencyMatrix {
                 }
             }
         }
+        System.out.println("Key not found!");
+        return path;
     }
 
     public void dfs() {
@@ -92,6 +93,7 @@ public class AdjacencyMatrix {
 
         graph.printMatrix();
         System.out.println("------------------");
-        graph.bfs(1, 3);
+
+        System.out.println(graph.bfs(0, 2));
     }
 }
