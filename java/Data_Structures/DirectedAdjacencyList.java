@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class AdjacencyList {
+public class DirectedAdjacencyList {
     SingleLinkedList[] list;
     int size;
 
     // In the future replace array with array List
-    public AdjacencyList(int size) {
+    public DirectedAdjacencyList(int size) {
         this.size = size;
         list = new SingleLinkedList[size];
         for (int i = 0; i < list.length; i++) {
@@ -83,33 +83,33 @@ public class AdjacencyList {
 
     public ArrayList<Integer> dfs(int source, int key) {
 
+        ArrayList<Integer> path = new ArrayList<>();
         boolean[] seen = new boolean[size];
         for (int i = 0; i < seen.length; i++) {
             seen[i] = false;
         }
-        ArrayList<Integer> path = new ArrayList<>();
 
         dfsWalk(source, key, seen, path);
 
         return path;
-
     }
 
     public boolean dfsWalk(int current, int key, boolean[] seen, ArrayList<Integer> path) {
         if (seen[current]) {
             return false;
         }
+
         seen[current] = true;
         path.add(current);
+
         if (current == key) {
             return true;
         }
 
-        SingleLinkedList links = list[current];
-        for (int i = 0; i < links.getLength(); ++i) {
-            int edge = links.getAt(i);
+        SingleLinkedList my_list = list[current];
+        for (int i = 0; i < my_list.getLength(); ++i) {
+            int edge = my_list.getAt(i);
             if (dfsWalk(edge, key, seen, path)) {
-
                 return true;
             }
 
@@ -129,7 +129,7 @@ public class AdjacencyList {
     }
 
     public static void main(String args[]) {
-        AdjacencyList graph = new AdjacencyList(5);
+        DirectedAdjacencyList graph = new DirectedAdjacencyList(5);
         graph.printAdjList();
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
@@ -140,6 +140,9 @@ public class AdjacencyList {
 
         graph.printAdjList();
         System.out.println(graph.bfs(1, 4));
+
+        System.out.println("-------------------");
+        System.out.println(graph.dfs(1, 4));
 
     }
 }
