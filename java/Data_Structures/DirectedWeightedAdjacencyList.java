@@ -2,30 +2,48 @@
 package Data_Structures;
 
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class DirectedWeightedAdjacencyList {
-    SingleLinkedList[] list;
-    int size;
+    LinkedList<Edge>[] adjacencylist;
+    int vertices;
 
-    // In the future replace array with array List
-    public DirectedWeightedAdjacencyList(int size) {
-        this.size = size;
-        list = new SingleLinkedList[size];
-        for (int i = 0; i < list.length; i++) {
-            list[i] = new SingleLinkedList();
+    public class Edge {
+        int source;
+        int destination;
+        int weight;
+
+        public Edge(int source, int destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
         }
     }
 
-    public void addEdge(int source, int destination) {
-        list[source].append(destination);
+    // In the future replace array with array List
+    public DirectedWeightedAdjacencyList(int vertices) {
+        this.vertices = vertices;
+        adjacencylist = new LinkedList[vertices];
+        for (int i = 0; i < adjacencylist.length; i++) {
+            adjacencylist[i] = new LinkedList<>();
+        }
+    }
+
+    public void addEdge(int source, int destination, int weight) {
+        Edge edge = new Edge(source, destination, weight);
+        adjacencylist[source].addLast(edge);
     }
 
     public void removeEdge(int source, int destination) {
-        list[source].removeKey(destination);
+        Edge temp = adjacencylist[source].peekFirst();
+        int count = 1;
+        while (temp.destination != destination) {
+            temp = adjacencylist[source].get(count);
+            count++;
+        }
+        adjacencylist[source].remove(temp);
     }
 
     public ArrayList<Integer> bfs(int source, int key) {
@@ -37,13 +55,13 @@ public class DirectedWeightedAdjacencyList {
     public int[] solve(int source) {
         Queue<Integer> queue = new LinkedList<>();
 
-        boolean[] visted = new boolean[this.size];
-        int[] prev = new int[this.size];
+        boolean[] visted = new boolean[this.vertices];
+        int[] prev = new int[this.vertices];
 
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < adjacencylist.length; i++) {
             visted[i] = false;
         }
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < adjacencylist.length; i++) {
             prev[i] = -1;
         }
 
@@ -53,13 +71,13 @@ public class DirectedWeightedAdjacencyList {
 
         while (!queue.isEmpty()) {
             int node = queue.remove();
-            SingleLinkedList neighbors = list[node];
+            LinkedList<Edge> neighbors = adjacencylist[node];
 
-            for (int i = 0; i < neighbors.getLength(); i++) {
-                if (!visted[neighbors.getAt(i)]) {
-                    queue.add(neighbors.getAt(i));
-                    visted[neighbors.getAt(i)] = true;
-                    prev[neighbors.getAt(i)] = node;
+            for (int i = 0; i < neighbors.size(); i++) {
+                if (!visted[neighbors.get(i).destination]) {
+                    queue.add(neighbors.get(i).destination);
+                    visted[neighbors.get(i).destination] = true;
+                    prev[neighbors.get(i).destination] = node;
                 }
             }
         }
@@ -84,7 +102,7 @@ public class DirectedWeightedAdjacencyList {
     public ArrayList<Integer> dfs(int source, int key) {
 
         ArrayList<Integer> path = new ArrayList<>();
-        boolean[] seen = new boolean[size];
+        boolean[] seen = new boolean[vertices];
         for (int i = 0; i < seen.length; i++) {
             seen[i] = false;
         }
@@ -106,9 +124,9 @@ public class DirectedWeightedAdjacencyList {
             return true;
         }
 
-        SingleLinkedList my_list = list[current];
-        for (int i = 0; i < my_list.getLength(); ++i) {
-            int edge = my_list.getAt(i);
+        LinkedList<Edge> my_list = adjacencylist[current];
+        for (int i = 0; i < my_list.size(); ++i) {
+            int edge = my_list.get(i).destination;
             if (dfsWalk(edge, key, seen, path)) {
                 return true;
             }
@@ -122,24 +140,30 @@ public class DirectedWeightedAdjacencyList {
 
     public void printAdjList() {
         System.out.println("-------------------------------");
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < adjacencylist.length; i++) {
             System.out.print(i + ": ");
-            list[i].printList();
+            for (int j = 0; j < adjacencylist[i].size(); j++) {
+                System.out.print(
+                        adjacencylist[i].get(j).destination + "[weight:" + adjacencylist[i].get(j).weight + "] ");
+            }
+            System.out.println("");
         }
     }
 
     public static void main(String args[]) {
-        DirectedAdjacencyList graph = new DirectedAdjacencyList(5);
+        DirectedWeightedAdjacencyList graph = new DirectedWeightedAdjacencyList(5);
         graph.printAdjList();
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
-        graph.addEdge(4, 2);
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(0, 2, 5);
+        graph.addEdge(1, 3, 8);
+        graph.addEdge(2, 3, 1);
+        graph.addEdge(3, 4, 7);
+        graph.addEdge(4, 2, 99);
+        graph.addEdge(2, 4, 1000);
+        graph.addEdge(2, 1, 22);
 
         graph.printAdjList();
-        System.out.println(graph.bfs(1, 4));
+        System.out.println(graph.bfs(2, 4));
 
         System.out.println("-------------------");
         System.out.println(graph.dfs(1, 4));
