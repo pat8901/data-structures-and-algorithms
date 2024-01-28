@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class DirectedWeightedAdjacencyList {
-    LinkedList<Edge>[] adjacencylist;
-    int vertices;
+    public LinkedList<Edge>[] adjacencylist;
+    public int vertices;
 
     public class Edge {
-        int source;
-        int destination;
-        int weight;
+        public int source;
+        public int destination;
+        public int weight;
 
         public Edge(int source, int destination, int weight) {
             this.source = source;
@@ -164,9 +164,5 @@ public class DirectedWeightedAdjacencyList {
 
         graph.printAdjList();
         System.out.println(graph.bfs(2, 4));
-
-        System.out.println("-------------------");
-        System.out.println(graph.dfs(1, 4));
-
     }
 }
