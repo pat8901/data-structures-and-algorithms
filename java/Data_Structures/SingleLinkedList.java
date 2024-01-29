@@ -5,10 +5,16 @@ public class SingleLinkedList {
 
     class ListNode {
         public int data;
+        public String name;
+
         ListNode next;
 
         ListNode(int data) {
             this.data = data;
+        }
+
+        ListNode(String name) {
+            this.name = name;
         }
     }
 
@@ -23,6 +29,22 @@ public class SingleLinkedList {
     }
 
     public void append(int data) {
+        ListNode node = new ListNode(data);
+        node.next = null;
+
+        if (head == null) {
+            head = node;
+        } else {
+            ListNode temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node;
+        }
+
+    }
+
+    public void append(String data) {
         ListNode node = new ListNode(data);
         node.next = null;
 
@@ -143,7 +165,7 @@ public class SingleLinkedList {
         if (head == null) {
             System.out.println("List is empty!");
         } else {
-            System.out.println("Head: " + head.data);
+            System.out.println("Head: " + head.name);
         }
     }
 
