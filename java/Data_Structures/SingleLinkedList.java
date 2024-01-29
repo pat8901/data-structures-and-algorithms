@@ -1,7 +1,7 @@
 package Data_Structures;
 
 public class SingleLinkedList {
-    ListNode head;
+    public ListNode head;
 
     class ListNode {
         public int data;
