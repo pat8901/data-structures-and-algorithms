@@ -5,10 +5,10 @@ public class MinHeap {
     public int length;
     private int capacity;
 
-    MinHeap(int size) {
-        capacity = size;
-        length = 0;
-        data = new int[capacity];
+    MinHeap(int capacity) {
+        this.capacity = capacity;
+        this.length = 0;
+        this.data = new int[capacity];
     }
 
     private int parent(int index) {

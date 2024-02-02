@@ -47,12 +47,12 @@ public class DirectedWeightedAdjacencyList {
     }
 
     public ArrayList<Integer> bfs(int source, int key) {
-        int[] prev = solve(source);
+        int[] prev = bfsSolve(source);
 
-        return reconstructPath(source, key, prev);
+        return bfsReconstructPath(source, key, prev);
     }
 
-    public int[] solve(int source) {
+    public int[] bfsSolve(int source) {
         Queue<Integer> queue = new LinkedList<>();
 
         boolean[] visted = new boolean[this.vertices];
@@ -84,7 +84,7 @@ public class DirectedWeightedAdjacencyList {
         return prev;
     }
 
-    public ArrayList<Integer> reconstructPath(int source, int key, int[] prev) {
+    public ArrayList<Integer> bfsReconstructPath(int source, int key, int[] prev) {
         ArrayList<Integer> path = new ArrayList<Integer>();
         for (int i = key; i != -1; i = prev[i]) {
             path.add(i);

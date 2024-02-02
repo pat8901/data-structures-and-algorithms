@@ -1,3 +1,7 @@
+// refactor this to be similar to adj List
+// Need to make weighted and directed
+// need to implement true bfs and dfs not bfprint dfprint
+
 package Data_Structures;
 
 import java.util.ArrayList;

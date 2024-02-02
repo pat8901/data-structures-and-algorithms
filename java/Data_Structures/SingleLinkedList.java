@@ -1,3 +1,5 @@
+// Update to be similar to double linkedList
+
 package Data_Structures;
 
 public class SingleLinkedList {

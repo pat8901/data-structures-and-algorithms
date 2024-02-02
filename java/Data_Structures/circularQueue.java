@@ -13,29 +13,6 @@ class CircularQueue {
         rear = -1;
     }
 
-    public static void main(String args[]) {
-        CircularQueue queue = new CircularQueue(5);
-
-        queue.printQueue();
-        queue.enqueue(64);
-        queue.printQueue();
-        queue.enqueue(32);
-        queue.enqueue(16);
-        queue.enqueue(128);
-        queue.printQueue();
-        queue.enqueue(512);
-        queue.printQueue();
-        queue.enqueue(90);
-        queue.printQueue();
-        queue.dequeue();
-        queue.dequeue();
-        queue.dequeue();
-        queue.dequeue();
-        queue.printQueue();
-        queue.enqueue(1024);
-        queue.printQueue();
-    }
-
     public void enqueue(int value) {
         if (isFull()) {
             System.out.println("Queue is full!");
@@ -93,6 +70,29 @@ class CircularQueue {
             }
             System.out.println(array[rear]);
         }
+    }
+
+    public static void main(String args[]) {
+        CircularQueue queue = new CircularQueue(5);
+
+        queue.printQueue();
+        queue.enqueue(64);
+        queue.printQueue();
+        queue.enqueue(32);
+        queue.enqueue(16);
+        queue.enqueue(128);
+        queue.printQueue();
+        queue.enqueue(512);
+        queue.printQueue();
+        queue.enqueue(90);
+        queue.printQueue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.printQueue();
+        queue.enqueue(1024);
+        queue.printQueue();
     }
 
 }
