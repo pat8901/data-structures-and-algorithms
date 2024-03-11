@@ -1,6 +1,6 @@
 package Data_Structures;
 
-public class BinaryTree {
+public class BinarySearchTree {
     public TreeNode root;
 
     public class TreeNode {
@@ -143,13 +143,13 @@ public class BinaryTree {
     }
 
     public static void main(String args[]) {
-        BinaryTree tree = new BinaryTree();
+        BinarySearchTree tree = new BinarySearchTree();
         tree.insert(5);
         tree.insert(5);
         tree.insert(10);
         tree.insert(2);
 
-        BinaryTree b = new BinaryTree();
+        BinarySearchTree b = new BinarySearchTree();
         b.insert(5);
         b.insert(5);
         b.insert(10);

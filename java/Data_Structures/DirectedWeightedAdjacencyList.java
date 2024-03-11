@@ -164,5 +164,6 @@ public class DirectedWeightedAdjacencyList {
 
         graph.printAdjList();
         System.out.println(graph.bfs(2, 4));
+        graph.removeEdge(4, 3);
     }
 }

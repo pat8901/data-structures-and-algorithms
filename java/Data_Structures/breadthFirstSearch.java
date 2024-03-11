@@ -5,11 +5,11 @@ package Data_Structures;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Data_Structures.BinaryTree.TreeNode;
+import Data_Structures.BinarySearchTree.TreeNode;
 
 public class breadthFirstSearch {
 
-    public void bfs(BinaryTree tree, int key) {
+    public void bfs(BinarySearchTree tree, int key) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.add(tree.root);
 
@@ -32,7 +32,7 @@ public class breadthFirstSearch {
     }
 
     public static void main(String args[]) {
-        BinaryTree tree = new BinaryTree();
+        BinarySearchTree tree = new BinarySearchTree();
         tree.insert(10);
         tree.insert(20);
         tree.insert(50);

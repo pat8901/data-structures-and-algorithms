@@ -57,7 +57,7 @@ class BubbleSort {
         BubbleSort bubbleSort = new BubbleSort(10);
         bubbleSort.fillArray();
         bubbleSort.printArray();
-        bubbleSort.bubbleSortVers2();
+        bubbleSort.bubbleSort();
         bubbleSort.printArray();
     }
 }
