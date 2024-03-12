@@ -1,5 +1,8 @@
 package Data_Structures;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinarySearchTree {
     public TreeNode root;
 
@@ -19,7 +22,7 @@ public class BinarySearchTree {
         root = insertRec(root, data);
     }
 
-    public TreeNode insertRec(TreeNode root, int data) {
+    private TreeNode insertRec(TreeNode root, int data) {
 
         if (root == null) {
             root = new TreeNode(data);
@@ -142,27 +145,47 @@ public class BinarySearchTree {
         }
     }
 
+    public void bfs(int key) {
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode temp = queue.poll();
+            System.out.print(temp.data + " ");
+
+            if (temp.data == key) {
+                System.out.println("Found key!");
+            }
+            if (temp.left != null) {
+                queue.add(temp.left);
+            }
+
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
+        }
+    }
+
     public static void main(String args[]) {
         BinarySearchTree tree = new BinarySearchTree();
         tree.insert(5);
-        tree.insert(5);
+        tree.insert(4);
         tree.insert(10);
         tree.insert(2);
+        tree.insert(0);
+        tree.insert(3);
+        tree.insert(6);
+        tree.insert(7);
+        tree.insert(8);
+        tree.insert(9);
+        tree.insert(12);
 
-        BinarySearchTree b = new BinarySearchTree();
-        b.insert(5);
-        b.insert(5);
-        b.insert(10);
-        b.insert(2);
+        System.out.println("======================================");
+        System.out.println("Depth First Search");
+        tree.inOrder();
 
-        System.out.println("Compare result: " + tree.compare(tree.root, b.root));
-        System.out.println("Find result: " + b.search(b.root, 5));
-        b.inOrder();
-
-        b.delete(b.root, 10);
-        System.out.println("Compare result: " + tree.compare(tree.root, b.root));
-        System.out.println("Find result: " + b.search(b.root, 10));
-        b.inOrder();
+        System.out.println("======================================");
+        System.out.println("Breadth First Search");
+        tree.bfs(9);
     }
-
 }
