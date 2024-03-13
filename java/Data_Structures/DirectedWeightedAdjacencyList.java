@@ -46,9 +46,34 @@ public class DirectedWeightedAdjacencyList {
         adjacencylist[source].remove(temp);
     }
 
+    // Breadth First Print
+    public void bfp(int source) {
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] seen = new boolean[vertices];
+
+        for (int i = 0; i < adjacencylist.length; i++) {
+            seen[i] = false;
+        }
+
+        queue.add(source);
+        seen[source] = true;
+
+        while (!queue.isEmpty()) {
+            int temp = queue.poll();
+            System.out.print(temp + " ");
+            LinkedList<Edge> neighbors = adjacencylist[temp];
+
+            for (int i = 0; i < neighbors.size(); i++) {
+                if (!seen[neighbors.get(i).destination]) {
+                    queue.add(neighbors.get(i).destination);
+                    seen[neighbors.get(i).destination] = true;
+                }
+            }
+        }
+    }
+
     public ArrayList<Integer> bfs(int source, int key) {
         int[] prev = bfsSolve(source);
-
         return bfsReconstructPath(source, key, prev);
     }
 
@@ -99,8 +124,30 @@ public class DirectedWeightedAdjacencyList {
 
     }
 
-    public ArrayList<Integer> dfs(int source, int key) {
+    // Depth First Print
+    public void dfp(int source) {
+        boolean[] seen = new boolean[vertices];
+        for (int i = 0; i < seen.length; i++) {
+            seen[i] = false;
+        }
+        dfpRec(source, seen);
+    }
 
+    public void dfpRec(int source, boolean[] seen) {
+        if (seen[source]) {
+            return;
+        }
+        seen[source] = true;
+        System.out.print(source + " ");
+        LinkedList<Edge> neighbors = adjacencylist[source];
+
+        for (int i = 0; i < neighbors.size(); i++) {
+            int temp = neighbors.get(i).destination;
+            dfpRec(temp, seen);
+        }
+    }
+
+    public ArrayList<Integer> dfs(int source, int key) {
         ArrayList<Integer> path = new ArrayList<>();
         boolean[] seen = new boolean[vertices];
         for (int i = 0; i < seen.length; i++) {
@@ -124,9 +171,9 @@ public class DirectedWeightedAdjacencyList {
             return true;
         }
 
-        LinkedList<Edge> my_list = adjacencylist[current];
-        for (int i = 0; i < my_list.size(); ++i) {
-            int edge = my_list.get(i).destination;
+        LinkedList<Edge> neighbor = adjacencylist[current];
+        for (int i = 0; i < neighbor.size(); ++i) {
+            int edge = neighbor.get(i).destination;
             if (dfsWalk(edge, key, seen, path)) {
                 return true;
             }
@@ -158,12 +205,20 @@ public class DirectedWeightedAdjacencyList {
         graph.addEdge(1, 3, 8);
         graph.addEdge(2, 3, 1);
         graph.addEdge(3, 4, 7);
+        graph.addEdge(3, 0, 1);
         graph.addEdge(4, 2, 99);
         graph.addEdge(2, 4, 1000);
         graph.addEdge(2, 1, 22);
-
         graph.printAdjList();
+
+        System.out.println("======================================");
+        System.out.println("Depth First Search");
+        System.out.println(graph.dfs(2, 1));
+        graph.dfp(2);
+
+        System.out.println("======================================");
+        System.out.println("Breadth First Search");
         System.out.println(graph.bfs(2, 4));
-        graph.removeEdge(4, 3);
+        graph.bfp(2);
     }
 }
