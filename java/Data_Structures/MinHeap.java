@@ -1,14 +1,14 @@
 package Data_Structures;
 
 public class MinHeap {
-    private int[] data;
+    private int[] heap;
     public int length;
     private int capacity;
 
     MinHeap(int capacity) {
         this.capacity = capacity;
         this.length = 0;
-        this.data = new int[capacity];
+        this.heap = new int[capacity];
     }
 
     private int parent(int index) {
@@ -23,18 +23,45 @@ public class MinHeap {
         return (2 * index) + 2;
     }
 
+    public void insert(int value) {
+        if (this.length == this.capacity) {
+            return;
+        }
+        heap[length] = value;
+        heapifyUp(length);
+        length++;
+    }
+
+    public int delete() {
+        if (length == 0) {
+            return -1;
+        }
+
+        int value = heap[0];
+        heap[0] = heap[length - 1];
+        length--;
+
+        if (length == 0) {
+            heap = new int[capacity];
+            return value;
+        }
+
+        heapifyDown(0);
+        return value;
+    }
+
     private void heapifyUp(int index) {
         if (index == 0) {
             return;
         }
 
         int parent = parent(index);
-        int parent_value = data[parent];
-        int value = data[index];
+        int parent_value = heap[parent];
+        int value = heap[index];
 
         if (parent_value > value) {
-            data[index] = parent_value;
-            data[parent] = value;
+            heap[index] = parent_value;
+            heap[parent] = value;
             heapifyUp(parent);
         }
     }
@@ -45,64 +72,54 @@ public class MinHeap {
         if (index >= length || leftIndex >= length) {
             return;
         }
-        int left_value = data[leftIndex];
-        int right_value = data[rightIndex];
-        int our_value = data[index];
+        int left_value = heap[leftIndex];
+        int right_value = heap[rightIndex];
+        int our_value = heap[index];
 
         if (left_value > right_value && our_value > right_value) {
-            data[index] = right_value;
-            data[rightIndex] = our_value;
+            heap[index] = right_value;
+            heap[rightIndex] = our_value;
             heapifyDown(rightIndex);
         }
 
         if (right_value > left_value && our_value > left_value) {
-            data[index] = left_value;
-            data[leftIndex] = our_value;
+            heap[index] = left_value;
+            heap[leftIndex] = our_value;
             heapifyDown(leftIndex);
         }
     }
 
-    public void insert(int value) {
-        data[length] = value;
-        heapifyUp(length);
-        length++;
-    }
-
-    public int delete() {
-        if (length == 0) {
-            return -1;
-        }
-
-        int value = data[0];
-        length--;
-
-        if (length == 0) {
-            data = new int[capacity];
-            return value;
-        }
-
-        data[0] = data[length];
-        heapifyDown(0);
-        return value;
-    }
-
     public void peek() {
-
+        System.out.println("Minimum: " + heap[0]);
     }
 
     public void printHeap() {
-
+        for (int i = 0; i < heap.length - 1; i++) {
+            System.out.print(heap[i] + ", ");
+        }
+        System.out.println(heap[heap.length - 1]);
+        System.out.println("Pointer:" + length);
     }
 
     public static void main(String args[]) {
-        MinHeap heap = new MinHeap(10);
+        MinHeap min_heap = new MinHeap(10);
 
-        heap.insert(20);
-        heap.insert(7);
-        heap.insert(3);
-        heap.insert(90);
-        heap.insert(1);
-        heap.insert(256);
-        System.out.println("Value: " + heap.delete());
+        min_heap.insert(1);
+        min_heap.insert(3);
+        min_heap.insert(4);
+        min_heap.insert(7);
+        min_heap.insert(8);
+        min_heap.insert(14);
+        min_heap.printHeap();
+
+        min_heap.delete();
+        min_heap.printHeap();
+
+        min_heap.insert(99);
+        min_heap.printHeap();
+        min_heap.peek();
+        min_heap.delete();
+        min_heap.printHeap();
+        min_heap.peek();
     }
 }
