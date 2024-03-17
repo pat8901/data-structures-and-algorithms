@@ -1,79 +1,15 @@
 package Queue;
-// write a queue using nodes
-
-// what is used more often array based queue or linked list based?
-
-// Is a queue a FIFO or LIFO?
-
-// What are queues used for.
-//Answer: 
-// CPU scheduling, Disk Scheduling
-// When data is transferred asynchronously between two processes.The queue is used for synchronization. For example: IO Buffers, pipes, file IO, etc
-// Handling of interrupts in real-time systems.
-// Call Center phone systems use Queues to hold people calling them in order.
-
-// What is the time complexity?
-// Answer: 
-// The complexity of enqueue and dequeue operations in a queue using an array is O(1). 
-//If you use pop(N) in python code, then the complexity might be O(n) depending on the position of the item to be popped.
-
-// this implementation needs to be redone, better way to do it
 
 public class Queue {
-    private int arr[];
+    private int queue[];
     private int front;
     private int rear;
     private int capacity;
 
-    public Queue(int size) {
-        capacity = size;
-        arr = new int[capacity];
-        front = -1;
-        rear = -1;
-    }
-
-    public static void main(String args[]) {
-        Queue queue = new Queue(5);
-        queue.enqueue(50);
-        queue.printQueue();
-    }
-
-    public void enqueue(int value) {
-        if (isFull()) {
-            System.out.println("Queue is full!");
-            System.exit(-1);
-        } else {
-            if (front == -1)
-                front = 0;
-            rear++;
-            arr[rear] = value;
-            System.out.println("Enqueued " + arr[rear]);
-        }
-    }
-
-    public int deque() {
-        int value;
-        if (isEmpty()) {
-            System.out.println("Queue is empty!");
-            return -1;
-        } else {
-            value = arr[front];
-            if (front >= rear) {
-                front = -1;
-                rear = -1;
-            } else {
-                front++;
-            }
-            System.out.println("Dequeued: " + value);
-            return value;
-        }
-    }
-
-    public void peek() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty!");
-        }
-        System.out.println("Front: " + front);
+    public Queue(int capacity) {
+        this.capacity = capacity;
+        queue = new int[capacity];
+        front = rear = -1;
     }
 
     public boolean isEmpty() {
@@ -84,15 +20,69 @@ public class Queue {
         return rear == capacity - 1;
     }
 
+    public void enqueue(int value) {
+        if (isFull()) {
+            System.out.println("Queue is full!");
+            return;
+        }
+
+        if (front == -1) {
+            front++;
+        }
+
+        rear++;
+        queue[rear] = value;
+        System.out.println("Enqueued " + queue[rear]);
+    }
+
+    public int deque() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+
+        int value = queue[front];
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front++;
+        }
+        System.out.println("Dequeued: " + value);
+        return value;
+    }
+
+    public void peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty!");
+            return;
+        }
+        System.out.println("Front: " + queue[front]);
+    }
+
     public void printQueue() {
         if (isEmpty()) {
             System.out.println("Queue is empty!");
+            return;
         } else {
             for (int i = front; i <= rear - 1; i++) {
-                System.out.print(arr[i] + ", ");
+                System.out.print(queue[i] + ", ");
             }
-            System.out.println(arr[rear]);
+            System.out.println(queue[rear]);
         }
+    }
+
+    public static void main(String args[]) {
+        Queue queue = new Queue(5);
+        queue.enqueue(50);
+        queue.enqueue(65);
+        queue.enqueue(56);
+        queue.enqueue(32);
+        queue.enqueue(8);
+        queue.enqueue(100);
+        queue.deque();
+        queue.enqueue(100);
+        queue.printQueue();
+        queue.peek();
     }
 
 }
