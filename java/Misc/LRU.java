@@ -1,4 +1,4 @@
-package Data_Structures;
+package Misc;
 // Least recently used 
 
 // Cache data structure using hash map and double linked list

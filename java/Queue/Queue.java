@@ -1,4 +1,4 @@
-package Data_Structures;
+package Queue;
 // write a queue using nodes
 
 // what is used more often array based queue or linked list based?

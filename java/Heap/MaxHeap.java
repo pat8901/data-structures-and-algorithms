@@ -1,4 +1,4 @@
-package Data_Structures;
+package Heap;
 //https://www.geeksforgeeks.org/max-heap-in-java/
 
 // what is a complete binary tree

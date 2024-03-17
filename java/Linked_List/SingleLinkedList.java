@@ -1,6 +1,6 @@
 // Update to be similar to double linkedList
 
-package Data_Structures;
+package Linked_List;
 
 public class SingleLinkedList {
     public ListNode head;

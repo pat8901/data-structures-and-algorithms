@@ -1,5 +1,5 @@
 // Trying my best not to use collections and use my own implmentations
-package Data_Structures;
+package Graph;
 
 import java.util.ArrayList;
 import java.util.Collections;

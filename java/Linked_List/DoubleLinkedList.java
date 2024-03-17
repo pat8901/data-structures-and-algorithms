@@ -1,4 +1,4 @@
-package Data_Structures;
+package Linked_List;
 // Need to make flash cards
 
 public class DoubleLinkedList {

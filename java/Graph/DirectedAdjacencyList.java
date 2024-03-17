@@ -1,11 +1,13 @@
 // Trying my best not to use collections and use my own implmentations
-package Data_Structures;
+package Graph;
 
 import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import Linked_List.SingleLinkedList;
 
 public class DirectedAdjacencyList {
     SingleLinkedList[] list;

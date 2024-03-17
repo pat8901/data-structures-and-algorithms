@@ -2,7 +2,7 @@
 // Need to make weighted and directed
 // need to implement true bfs and dfs not bfprint dfprint
 
-package Data_Structures;
+package Graph;
 
 import java.util.ArrayList;
 import java.util.List;

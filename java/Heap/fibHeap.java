@@ -1,4 +1,4 @@
-package Data_Structures;
+package Heap;
 
 public class fibHeap {
 

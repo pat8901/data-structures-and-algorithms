@@ -1,4 +1,4 @@
-package Data_Structures;
+package Hash;
 
 // Will need a arraylist
 // optimal load factor is .7?

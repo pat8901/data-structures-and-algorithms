@@ -3,8 +3,9 @@ package Graph_Search_Algorithms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import Data_Structures.DirectedWeightedAdjacencyList;
-import Data_Structures.DirectedWeightedAdjacencyList.Edge;
+
+import Graph.DirectedWeightedAdjacencyList;
+import Graph.DirectedWeightedAdjacencyList.Edge;
 
 //  Data Structures used:
 //  Double linked list
